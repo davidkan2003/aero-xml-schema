@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Airspaces xmlns="D:\IVAO\python-geo\schema\Elements.xsd">
+    <AirspaceGroups>
+        <AirspaceGroup></AirspaceGroup>
+    </AirspaceGroups>
+</Airspaces>

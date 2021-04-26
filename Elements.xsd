@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+        targetNamespace="elements"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:types="D:\IVAO\python-geo\schema\Types.xsd"
+>
+    <xs:element name="Airport" type="types:Airport"/>
+    <xs:element name="Airspaces" type="types:Airspaces"/>
+</xs:schema>
