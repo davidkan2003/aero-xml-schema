@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema
-        targetNamespace="ivao-data-types"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
->
+    targetNamespace="ivao-data-types"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:self="ivao-data-types"
+    >
+
+    <xs:complexType name="AirspaceGroup">
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="AirspaceGroups">
         <xs:sequence>
-            <xs:element type="AirspaceGroup"
-                        name="AirspaceGroup"
-                        minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="self:AirspaceGroup"
+                name="AirspaceGroup"
+                minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:complexType name="ATCPositions">
         <xs:sequence>
-            <xs:element type="ATCPosition"
-                        name="ATCPosition"
-                        minOccurs="0"
-                        maxOccurs="unbounded"/>
+            <xs:element type="self:ATCPosition"
+                name="ATCPosition"
+                minOccurs="0"
+                maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:complexType name="Airspaces">
         <xs:sequence>
-            <xs:element type="AirspaceGroups" name="AirspaceGroups"
+            <xs:element type="self:AirspaceGroups" name="AirspaceGroups"
                 minOccurs="0"/>
-            <xs:element type="Airspace" name="Airspace"
+            <xs:element type="self:Airspace" name="Airspace"
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
@@ -32,17 +39,17 @@
     <xs:complexType name="Airspace">
         <xs:choice>
             <xs:sequence>
-                <xs:element type="HorizontalBounds" name="HorizontalBounds"/>
-                <xs:element type="VerticalBounds" name="VerticalBounds"/>
+                <xs:element type="self:HorizontalBounds" name="HorizontalBounds"/>
+                <xs:element type="self:VerticalBounds" name="VerticalBounds"/>
             </xs:sequence>
-            <xs:element type="AirspaceBounds" name="AirspaceBounds"/>
-            <xs:element type="AirspaceBoundsCollection" name="AirspaceBoundsCollection"/>
+            <xs:element type="self:AirspaceBounds" name="AirspaceBounds"/>
+            <xs:element type="self:AirspaceBoundsCollection" name="AirspaceBoundsCollection"/>
         </xs:choice>
         <xs:attribute name="id" type="xs:string" use="required"/>
         <xs:attribute name="name" type="xs:string"/>
-        <xs:attribute name="type" use="required" default="ACC">
+        <xs:attribute name="type" use="optional" default="ACC">
             <xs:simpleType>
-                <xs:restriction>
+                <xs:restriction base="xs:string">
                     <xs:enumeration value="ACC"/>
                     <xs:enumeration value="TMA"/>
                     <xs:enumeration value="CTA"/>
@@ -54,27 +61,20 @@
         <xs:attribute name="groups" type="xs:string" default=""/>
     </xs:complexType>
 
-    <xs:complexType name="AirspaceGroup">
-        <xs:attribute name="id" type="xs:string"/>
-        <xs:attribute name="name" type="xs:string"/>
-    </xs:complexType>
-
-    <xs:complexType name="HorizontalBoundsContent">
-        <xs:simpleContent>
+    <xs:simpleType name="HorizontalBoundsContent">
             <xs:restriction base="xs:string">
                 <xs:minLength value="1"/>
-<!--                <xs:pattern value="([0-9]|(N|E|W|S|n|e|w|s|.|с|ю|з|в|С|Ю|З|В)|\s)*"/>-->
+                <!--                <xs:pattern value="([0-9]|(N|E|W|S|n|e|w|s|.|с|ю|з|в|С|Ю|З|В)|\s)*"/>-->
             </xs:restriction>
-        </xs:simpleContent>
-    </xs:complexType>
+    </xs:simpleType>
 
     <!-- The actual bounds data is stored inside the element as text -->
     <xs:complexType name="HorizontalBounds">
         <xs:simpleContent>
-            <xs:extension base="HorizontalBoundsContent">
+            <xs:extension base="self:HorizontalBoundsContent">
                 <xs:attribute name="type" default="AIP">
                     <xs:simpleType>
-                        <xs:restriction>
+                        <xs:restriction base="xs:string">
                             <xs:enumeration value="AIP"/>
                         </xs:restriction>
                     </xs:simpleType>
@@ -86,42 +86,42 @@
     </xs:complexType>
 
     <xs:simpleType name="ElevationType">
-                <xs:restriction>
-                    <xs:enumeration value="FL"/>
-                    <xs:enumeration value="FT AGL"/>
-                    <xs:enumeration value="M AGL"/>
-                    <xs:enumeration value="FT AMSL"/>
-                    <xs:enumeration value="M AMSL"/>
-                    <xs:enumeration value="UNLTD"/>
-                </xs:restriction>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FL"/>
+            <xs:enumeration value="FT AGL"/>
+            <xs:enumeration value="M AGL"/>
+            <xs:enumeration value="FT AMSL"/>
+            <xs:enumeration value="M AMSL"/>
+            <xs:enumeration value="UNLTD"/>
+        </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="VerticalBounds">
         <xs:sequence>
-            <xs:element type="VerticalBoundsEntry"
-                        name="VerticalBoundsEntry"
-                        maxOccurs="2" minOccurs="2"/>
+            <xs:element type="self:VerticalBoundsEntry"
+                name="VerticalBoundsEntry"
+                maxOccurs="2" minOccurs="2"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="VerticalBoundsEntry">
         <xs:attribute name="direction" use="required">
             <xs:simpleType>
-                <xs:restriction>
+                <xs:restriction base="xs:string">
                     <xs:enumeration value="HIGH"/>
                     <xs:enumeration value="LOW"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="type" type="ElevationType" use="required"/>
+        <xs:attribute name="type" type="self:ElevationType" use="required"/>
         <xs:attribute name="value" type="xs:integer"/>
         <xs:attribute name="description" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="AirspaceBounds">
         <xs:sequence>
-            <xs:element type="HorizontalBounds" name="HorizontalBounds"/>
-            <xs:element type="VerticalBounds" name="VerticalBounds"/>
+            <xs:element type="self:HorizontalBounds" name="HorizontalBounds"/>
+            <xs:element type="self:VerticalBounds" name="VerticalBounds"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -132,7 +132,7 @@
     </xs:complexType>
 
     <xs:complexType name="Elevation">
-        <xs:attribute name="type" use="required" type="ElevationType"/>
+        <xs:attribute name="type" use="required" type="self:ElevationType"/>
         <xs:attribute name="value" type="xs:int" />
         <xs:attribute name="description" type="xs:string"/>
     </xs:complexType>
@@ -140,33 +140,33 @@
     <xs:complexType name="Airport">
         <xs:sequence>
             <!-- use Location with elevation prop -->
-            <xs:element name="Location" type="Point"/>
-            <xs:element type="Airspaces" name="Airspaces"
+            <xs:element name="Location" type="self:Point"/>
+            <xs:element type="self:Airspaces" name="Airspaces"
                 minOccurs="0"/>
-            <xs:element type="ATCPositions" name="ATCPositions"
+            <xs:element type="self:ATCPositions" name="ATCPositions"
                 minOccurs="0"/>
         </xs:sequence>
         <xs:attribute name="id" use="required"/>
         <xs:attribute name="ident_icao">
             <xs:simpleType>
-                <xs:restriction>
+                <xs:restriction base="xs:string">
                     <xs:pattern value="[A-Z]{4}"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="ident_iata">
             <xs:simpleType>
-                <xs:restriction>
+                <xs:restriction base="xs:string">
                     <xs:pattern value="[A-Z]{3}"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
-    
+
     <xs:complexType name="ATCPosition">
         <xs:attribute name="identifier" use="required">
             <xs:simpleType>
-                <xs:restriction>
+                <xs:restriction base="xs:string">
                     <xs:pattern value="[A-Z 0-9]{4}_(([A-Z 0-9]{1,3}_(CTR|APP|TWR|GND|DEL|FSS))|(CTR|APP|TWR|GND|DEL|FSS))"/>
                 </xs:restriction>
             </xs:simpleType>
@@ -181,7 +181,7 @@
         <xs:attribute name="icao" use="required"/>
         <xs:attribute name="division" use="required">
             <xs:simpleType>
-                <xs:restriction>
+                <xs:restriction base="xs:string">
                     <xs:pattern value="[A-Z]{2}"/>
                 </xs:restriction>
             </xs:simpleType>
@@ -190,7 +190,7 @@
 
     <xs:complexType name="AirspaceBoundsCollection">
         <xs:sequence>
-            <xs:element name="AirspaceBounds" type="AirspaceBounds" maxOccurs="unbounded"/>
+            <xs:element name="AirspaceBounds" type="self:AirspaceBounds" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
