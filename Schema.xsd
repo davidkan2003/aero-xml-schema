@@ -3,7 +3,20 @@
     targetNamespace="ivao-data-types"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:self="ivao-data-types"
+    elementFormDefault="qualified"
     >
+
+    <xs:element name="Airport" type="self:Airport"/>
+    <xs:element name="Airspaces" type="self:Airspaces"/>
+    <xs:element name="Airspace" type="self:Airspace"/>
+    <xs:element name="ATCPosition" type="self:ATCPosition"/>
+    <xs:element name="AirspaceBounds" type="self:AirspaceBounds"/>
+    <xs:element name="AirspaceBoundsCollection" type="self:AirspaceBoundsCollection"/>
+    <xs:element name="AirspaceGroup" type="self:AirspaceGroup"/>
+    <xs:element name="Elevation" type="self:Elevation"/>
+    <xs:element name="HorizontalBounds" type="self:HorizontalBounds"/>
+    <xs:element name="VerticalBounds" type="self:VerticalBounds"/>
+    <xs:element name="Point" type="self:Point"/>
 
     <xs:complexType name="AirspaceGroup">
         <xs:attribute name="id" type="xs:string"/>
