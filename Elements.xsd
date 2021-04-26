@@ -2,7 +2,7 @@
 <xs:schema
         targetNamespace="elements"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns:types="D:\IVAO\python-geo\schema\Types.xsd"
+        xmlns:types="https://raw.githubusercontent.com/davidkan2003/ivao-data-schema/main/Types.xsd"
 >
     <xs:element name="Airport" type="types:Airport"/>
     <xs:element name="Airspaces" type="types:Airspaces"/>
