@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema
-        targetNamespace="ivao-data-elements"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns:types="ivao-data-types"
->
+    targetNamespace="ivao-data-elements"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:types="ivao-data-types"
+    >
+    <xs:import namespace="ivao-data-types" schemaLocation="https://raw.githubusercontent.com/davidkan2003/ivao-data-schema/main/Types.xsd"/>
     <xs:element name="Airport" type="types:Airport"/>
     <xs:element name="Airspaces" type="types:Airspaces"/>
     <xs:element name="AirspaceGroups" type="types:AirspaceGroups"/>
