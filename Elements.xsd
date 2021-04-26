@@ -6,4 +6,6 @@
 >
     <xs:element name="Airport" type="types:Airport"/>
     <xs:element name="Airspaces" type="types:Airspaces"/>
+    <xs:element name="AirspaceGroups" type="types:AirspaceGroups"/>
+    <xs:element name="Region" type="types:Region"/>
 </xs:schema>
