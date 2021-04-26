@@ -7,6 +7,13 @@
     <xs:import namespace="ivao-data-types" schemaLocation="https://raw.githubusercontent.com/davidkan2003/ivao-data-schema/main/Types.xsd"/>
     <xs:element name="Airport" type="types:Airport"/>
     <xs:element name="Airspaces" type="types:Airspaces"/>
-    <xs:element name="AirspaceGroups" type="types:AirspaceGroups"/>
-    <xs:element name="Region" type="types:Region"/>
+    <xs:element name="Airspace" type="types:Airspace"/>
+    <xs:element name="ATCPosition" type="types:ATCPosition"/>
+    <xs:element name="AirspaceBounds" type="types:AirspaceBounds"/>
+    <xs:element name="AirspaceBoundsCollection" type="types:AirspaceBoundsCollection"/>
+    <xs:element name="AirspaceGroup" type="types:AirspaceGroup"/>
+    <xs:element name="Elevation" type="types:Elevation"/>
+    <xs:element name="HorizontalBounds" type="types:HorizontalBounds"/>
+    <xs:element name="VerticalBounds" type="types:VerticalBounds"/>
+    <xs:element name="Point" type="types:Point"/>
 </xs:schema>
